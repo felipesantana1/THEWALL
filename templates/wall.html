@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>THE WALL</title>
+    <style type='text/css'>
+    
+    textarea{
+
+        width: 750px;
+        height: 80px;
+        border: 5px solid black;
+    }
+    #button{
+
+        background-color: blue; 
+        color: white;
+
+    }
+    #button1{
+
+        background-color: green;
+        color: white;
+    }
+    #comment{
+
+        width: 600px;
+        height: 50px;
+    }
+    
+    
+    </style>
+</head>
+<body style='background-color: #2b2bec'>
+
+    <h1>{{ loggedIn }}</h1>
+    <form action="/logout" method="post">
+        <input type="submit" value="Log Out">
+    </form>
+    <br>
+    {% with messages = get_flashed_messages(category_filter=['wallError']) %}
+    {% if messages %}
+    <ul style='text-align: center'>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <br>
+<b>Post A Message:</b>
+<br>
+<br>
+<form action='/msg' method='POST'>
+<textarea name="text"></textarea>
+<input id='button' type="submit" value="Post A Message">
+</form>
+<br>
+
+{% if all_msg %}
+{% for message in all_msg %}
+<p><b>{{ message['full_name'] + ": " + message['message'] + " " + message['posted_date'] }}</b></p>
+<form action='/delete/{{message["id"]}}' method='POST'>
+    <input id='button' type="submit" value="Delete Message">
+</form>
+{% for comment in all_comments %}
+{% if comment['message_id'] == message['id'] %}
+<p>{{comment['full_name']}}: {{comment['comment']}} {{comment['posted_date']}}</p>
+{% endif %}
+{% endfor %}
+<form action= "/comments/{{message['id']}}" method="post">
+    <b>Write A Comment:</b>
+    <br>
+    <textarea id="comment" name="comment"></textarea>
+    <input type="submit" value="Post A Comment" id="button1">
+</form>
+
+
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+</body>
+</html>

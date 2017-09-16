@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Register</title>
+</head>
+<body style='background-color: #2b2bec'>
+
+    <h1 style='text-align: center'>Welcome to FelipeBook!</h1>
+
+    <h3 style='text-align: center'>Login Here: </h3>
+    <form action="/login" method="POST" style='text-align: center'>
+        <label for="email">Email Address: <input type="text" name="email" id="email"></label>
+        <br>
+        <br>
+        <label for="password">Password: <input type="password" name="password" id="password"></label>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% with messages = get_flashed_messages(category_filter=['logError']) %}
+    {% if messages %}
+    <ul style='text-align: center'>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <br>
+    <br>   
+    <h2 style='text-align: center'>Not a Member?</h2>
+    <h4 style='text-align: center'>Register Here:</h4>
+
+    <form action="/register", method='POST' style='text-align: center'>
+        <label for="first_name">First Name: <input type="text" name="first_name" id="first_name"></label>
+        <br>
+        <br>
+        <label for="last_name">Last Name: <input type="text" name="last_name" id="last_name"></label>
+        <br>
+        <br>
+        <label for="email">Email Address: <input type="text" name="email" id="email"></label>
+        <br>
+        <br>
+        <label for="password">Password: <input type="password" name="password" id="password"></label>
+        <br>
+        <br>
+        <label for="password1">Confirm Password: <input type="password" name="password1" id="password1"></label>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% with messages = get_flashed_messages(category_filter=['regError']) %}
+    {% if messages %}
+    <ul style='text-align: center'>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+    </ul>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+</body>
+</html>
